@@ -74,7 +74,7 @@ pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels
 pie3D(slices,labels = lbls, col=rainbow(length(lbls)),
-   main="How concerned people in Northeastern America about climate change?")
+   main="How concerned people in North of America about climate change?")
 ```
 
 
@@ -118,8 +118,10 @@ pct <- round(slices/sum(slices)*100)
 lbls <- paste(lbls, pct) # add percents to labels
 lbls <- paste(lbls,"%",sep="") # ad % to labels
 pie3D(slices,labels = lbls, col=rainbow(length(lbls)),
-   main="How concerned people in Western America about climate change?")
+   main="How concerned people in West of America about climate change?")
 ```
+
+
 
 
 
