@@ -1,0 +1,125 @@
+---
+title: "Final Project"
+author: "Isheka Agarwal"
+date: "11/17/2019"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(foreign)
+library(readxl)
+library(devtools)
+library(plotrix)
+library(fs)
+library(reshape2)
+library(rstanarm)
+library(scales)
+library(stringr)
+library(broom)
+library(infer)
+library(ggridges)
+library(tidyverse)
+```
+
+```{r, warning= FALSE, message= FALSE, echo= FALSE}
+dir.create("raw-data")
+
+dataset <- read.spss("raw-data/CCAM_SPSS_Data.sav", to.data.frame=TRUE) 
+
+dataset2 <- read.csv("raw-data/PCS_2015.csv")
+
+```
+
+
+```{r northeast, warning= FALSE, message= FALSE, echo= FALSE}
+main <- dataset %>%
+  drop_na() %>%
+  select(region4, worry) %>%
+  group_by(worry) %>%
+  filter(region4 == "Northeast")
+
+a <- main %>%
+  filter(worry == "Very worried") %>%
+  count() %>%
+  pull(n)
+
+b <- main %>%
+  filter(worry == "Somewhat worried") %>%
+  count() %>%
+  pull(n)
+
+c <- main %>%
+  filter(worry == "Not very worried") %>%
+  count() %>%
+  pull(n)
+
+d <- main %>%
+  filter(worry == "Not at all worried") %>%
+  count() %>%
+  pull(n)
+
+x <- main %>%
+  group_by(worry) %>%
+  mutate(total = sum(a + b + c + d)) %>%
+  mutate(very_worried = a/total) %>% 
+  mutate(somewhat_worried = b/total) %>%
+  mutate(not_very_worried = c/total) %>%
+  mutate(not_at_all_worried = d/total) 
+
+slices <- c(0.1587302	, 0.4693878	, 0.2154195	, 0.1564626)
+lbls <- c("Very Worried", "Somewhat Worried", "Not very worried", "Not at all worried")
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels
+pie3D(slices,labels = lbls, col=rainbow(length(lbls)),
+   main="How concerned people in Northeastern America about climate change?")
+```
+
+
+```{r west, warning= FALSE, message= FALSE, echo= FALSE}
+main2 <- dataset %>%
+  drop_na() %>%
+  select(region4, worry) %>%
+  group_by(worry) %>%
+  filter(region4 == "West")
+
+p <- main2 %>%
+  filter(worry == "Very worried") %>%
+  count() %>%
+  pull(n)
+
+q <- main2 %>%
+  filter(worry == "Somewhat worried") %>%
+  count() %>%
+  pull(n)
+
+r <- main2 %>%
+  filter(worry == "Not very worried") %>%
+  count() %>%
+  pull(n)
+
+s <- main2 %>%
+  filter(worry == "Not at all worried") %>%
+  count() %>%
+  pull(n)
+
+y <- main2 %>%
+  group_by(worry) %>%
+  mutate(total = sum(p + q + r + s)) %>%
+  mutate(very_worried = p/total) %>% 
+  mutate(somewhat_worried = q/total) %>%
+  mutate(not_very_worried = r/total) %>%
+  mutate(not_at_all_worried = s/total) 
+slices <- c(0.1919014	, 0.3838028	, 0.2711268	, 0.153169)
+lbls <- c("Very Worried", "Somewhat Worried", "Not very worried", "Not at all worried")
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels
+pie3D(slices,labels = lbls, col=rainbow(length(lbls)),
+   main="How concerned people in Western America about climate change?")
+```
+
+
+
