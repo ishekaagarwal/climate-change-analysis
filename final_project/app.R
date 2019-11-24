@@ -14,6 +14,9 @@ library(purrr)
 library(tidyverse)
 library(readr)
 
+main <- read_rds("main.rds")
+main2 <- read_rds("main2.rds")
+    
 # Define UI for application that draws a histogram
 ui <- fluidPage(
     
@@ -27,7 +30,10 @@ ui <- fluidPage(
         ),
         
         tabPanel(
-            title = "Graphics")
+            title = "Graphics",
+            plotOutput("distPlot"),
+            plotOutput("number2")
+            )
 )
 )
 
@@ -35,12 +41,29 @@ ui <- fluidPage(
 server <- function(input, output) {
     
     output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-        
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+        main %>% 
+            group_by(worry) %>% 
+            count() %>% 
+            ungroup() %>% 
+            mutate(total = sum(n)) %>% 
+            mutate(n = n * 100/ total) %>% 
+            select(-total) %>% 
+            ggplot(aes(x = worry, y = n)) + 
+            geom_col() + 
+            coord_flip()
+    })
+    
+    output$number2 <- renderPlot({
+        main2 %>% 
+            group_by(worry) %>% 
+            count() %>% 
+            ungroup() %>% 
+            mutate(total = sum(n)) %>% 
+            mutate(n = n * 100/ total) %>% 
+            select(-total) %>% 
+            ggplot(aes(x = worry, y = n)) + 
+            geom_col() + 
+            coord_flip()
     })
 }
 
