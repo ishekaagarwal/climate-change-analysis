@@ -7,21 +7,25 @@
 #    http://shiny.rstudio.com/
 #
 
+
 library(shiny)
 library(janitor)
 library(ggplot2)
+library(shinythemes)
 library(purrr)
 library(tidyverse)
 library(readr)
 
 main <- read_rds("main.rds")
 main2 <- read_rds("main2.rds")
-    
+main3 <- read_rds("main3.rds")
+main4 <- read_rds("main4.rds")
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
     
     navbarPage(
-        "How Climate Change Affects Mental Illness?",
+       title = "How Climate Change Affects Mental Illness?",
         tabPanel(
             title = "Introduction",
             h6("By Isheka Agarwal"),
@@ -31,39 +35,39 @@ ui <- fluidPage(
         
         tabPanel(
             title = "Graphics",
-            plotOutput("distPlot"),
-            plotOutput("number2")
+            h3("How living in different regions affect people's perspective on climate change?"),
+            br(),
+            br(),
+            sidebarLayout(
+                sidebarPanel(
+                    radioButtons(inputId = "region_type",
+                                 label = "US Demographical region", 
+                                 choices = c("Northeast", "West", "South", "Midwest"))
+                ),
+            mainPanel(
+                plotOutput("regionchart")
             )
-)
-)
+            )
+)))
 
 # Define server logic required to draw a histogram
+
+
 server <- function(input, output) {
     
-    output$distPlot <- renderPlot({
-        main %>% 
-            group_by(worry) %>% 
-            count() %>% 
-            ungroup() %>% 
-            mutate(total = sum(n)) %>% 
-            mutate(n = n * 100/ total) %>% 
-            select(-total) %>% 
-            ggplot(aes(x = worry, y = n)) + 
-            geom_col() + 
-            coord_flip()
-    })
-    
-    output$number2 <- renderPlot({
-        main2 %>% 
-            group_by(worry) %>% 
-            count() %>% 
-            ungroup() %>% 
-            mutate(total = sum(n)) %>% 
-            mutate(n = n * 100/ total) %>% 
-            select(-total) %>% 
-            ggplot(aes(x = worry, y = n)) + 
-            geom_col() + 
-            coord_flip()
+    output$regionchart <- renderPlot({
+        if(input$region_type == "Northeast"){
+            main
+        }
+        else if(input$region_type == "West"){
+            main2
+        }
+        else if(input$region_type == "South"){
+            main3
+        }
+        else if(input$region_type == "Midwest"){
+            main4
+        }
     })
 }
 

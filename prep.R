@@ -19,22 +19,79 @@ dataset <- read.spss("raw-data/CCAM_SPSS_Data.sav", to.data.frame=TRUE)
 
 dataset2 <- read.csv("raw-data/PCS_2015.csv")
 
-#Processing the data for the first ggplot
+#Processing the data for the first (northeast) ggplot
 
 main <- dataset %>%
   drop_na() %>%
   select(region4, worry) %>%
   group_by(worry) %>%
-  filter(region4 == "Northeast")
+  filter(region4 == "Northeast") %>% 
+  group_by(worry) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(total = sum(n)) %>% 
+  mutate(n = n * 100/ total) %>% 
+  select(-total) %>% 
+  ggplot(aes(x = worry, y = n)) + 
+  geom_col() + 
+  coord_flip()
 
 write_rds(main, "final_project/main.rds")
 
-#Processing the data for the second ggplot
+#Processing the data for the second (west) ggplot
 
 main2 <- dataset %>%
   drop_na() %>%
   select(region4, worry) %>%
   group_by(worry) %>%
-  filter(region4 == "West")
+  filter(region4 == "West") %>% 
+  group_by(worry) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(total = sum(n)) %>% 
+  mutate(n = n * 100/ total) %>% 
+  select(-total) %>% 
+  ggplot(aes(x = worry, y = n)) + 
+  geom_col() + 
+  coord_flip()
 
 write_rds(main2, "final_project/main2.rds")
+
+#Processing the data for the third (south) ggplot 
+
+main3 <- dataset %>%
+  drop_na() %>%
+  select(region4, worry) %>%
+  group_by(worry) %>%
+  filter(region4 == "South") %>% 
+  group_by(worry) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(total = sum(n)) %>% 
+  mutate(n = n * 100/ total) %>% 
+  select(-total) %>% 
+  ggplot(aes(x = worry, y = n)) + 
+  geom_col() + 
+  coord_flip()
+
+write_rds(main3, "final_project/main3.rds")
+
+#Processing the data for the fourth (Midwest) ggplot
+
+main4 <- dataset %>%
+  drop_na() %>%
+  select(region4, worry) %>%
+  group_by(worry) %>%
+  filter(region4 == "Midwest") %>% 
+  group_by(worry) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(total = sum(n)) %>% 
+  mutate(n = n * 100/ total) %>% 
+  select(-total) %>% 
+  ggplot(aes(x = worry, y = n)) + 
+  geom_col() + 
+  coord_flip()
+
+write_rds(main4, "final_project/main4.rds")
+
