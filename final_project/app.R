@@ -9,13 +9,14 @@
 
 
 library(shiny)
-library(janitor)
 library(ggplot2)
 library(shinythemes)
 library(purrr)
 library(usmap)
-library(tidyverse)
 library(readr)
+library(gt)
+library(tidyverse)
+
 
 
 heat_2013 <- read_rds("heat_2013.rds")
@@ -91,7 +92,7 @@ ui <- fluidPage(theme = shinytheme("superhero"),
             br(),
             br(),
             br(),
-            h4("I wanted to explore if population affects climate change. So I used population data of 2009 in the United State and merged it with my climate change belief dataset. Using this merged dataset, I created a model to run regression of population on climate change beliefs. From this scatterplot, it can be analyzed that there is a very weak but positive correlation between population and climate change concerns. Therefore, it can be concluded that there is no strong evidence that population affects people’s climate change concerns."),
+            h4("I wanted to explore if population affects people's opinions about climate change. So I used population data of 2009 in the United States and merged it with my climate change belief dataset. Using this merged dataset, I created a model to run regression of population on climate change beliefs. From this scatterplot, it can be analyzed that there is a very weak but positive correlation between population and climate change concerns. Therefore, it can be concluded that there is no strong evidence that population affects people’s climate change concerns."),
             br(),
             br(),
             gt_output("model2"),
@@ -107,15 +108,14 @@ ui <- fluidPage(theme = shinytheme("superhero"),
         br(),
         h4("Background of the Project:"),
         h5("I made this project on Perspective on Historical and Future Consequences of Climate Change. This project analyzes the historical consequences of climate change, represents future projection for consequences of climate change and various opinions of people living in various regions in the United States. This project also creates a model to analyze what affects people's concern about climate change."),
-        h5("The historical consequences of climate change are indicated by extreme heat days and events by counties in the United States and measured by number of extreme heat days occuring from 2013-16. The extreme heat days are counted when the daily maximum temperature goes beyond a relative threshold of 90th Percentile. In order to see how extreme heat days affect people living in these regions, I analyzed the heat stress hospitalizations in each of the states, mapping the number of hospitalizations for heat stress across the United States from 2013-17. Then I analyzed relative data to predict the future projection of extreme heat across the United States within the next decade and how it will impact people's lives."),
+        h5("The historical consequences of climate change are indicated by extreme heat days and events by counties in the United States and measured by number of extreme heat days occuring from 2013-16. The extreme heat days are counted when the daily maximum temperature goes beyond a relative threshold of 90th Percentile. Then I analyzed relative data to predict the future projection of extreme heat across the United States within the next decade and how it will impact people's lives."),
         h5("I collected data from National Environmental Public Health Tracking Network to make my analysis on abovementioned areas."),
-        h5("Additionally, I accessed data from the Climate Change in the American Mind (CCAM) research project to analyze the climate change beliefs of people who are living in four major regions across the United States: Northeast, South, Midwest and West. Then I created some models using linear regression to analyze what affects people's beliefs about climate change."), 
-        h5("Github repository for this project: https://github.com/ishekaagarwal/final-project-isheka"),
+        h5("Additionally, I accessed data from Yale Climate Opinion Maps from “Geographic variation in opinions on climate change at state and local scales in the USA” to analyze the climate change beliefs of people. Then I created a model using linear regression to analyze if population affects people's beliefs about climate change."),
+        a("Github repository for this project",
+            href = "https://github.com/ishekaagarwal/final-project-isheka"),
         br(),
         br(),
-        br(),
-        br(),
-        br(),
+        HTML('<iframe width="600" height="400" src="https://www.youtube.com/embed/by7o1-Mif7M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'),
         br(),
         br(),
         h6("Accessed from:
