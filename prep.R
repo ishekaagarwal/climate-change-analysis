@@ -36,6 +36,8 @@ dataset8 <- read.csv("raw-data/YCOM_2019_Data.csv")
 # Processing the data for number of extreme heat days and events by state
 
     ## For 2013
+    ## I use heat maps package which automatically inputs my data and outputs
+    ## beuatiful maps with my data
 
 heat_2013 <- dataset3 %>%
   filter(Year == "2013") 
@@ -52,6 +54,7 @@ write_rds(heat_days_2013, "final_project/heat_2013.rds")
 
 
   ## For 2014
+  ## I use the same code but change the year. 
 
 
 heat_2014 <- dataset3 %>%
@@ -71,6 +74,7 @@ write_rds(heat_days_2014, "final_project/heat_2014.rds")
 
 
   ## For 2015 
+  ## I use the same code but change the year
 
 heat_2015 <- dataset3 %>%
   filter(Year == "2015")
@@ -87,6 +91,7 @@ write_rds(heat_days_2015, "final_project/heat_2015.rds")
 
 
   ## For 2016
+  ## I use the same code but change the year 
 
 heat_2016 <- dataset3 %>%
   filter(Year == "2016") 
