@@ -38,31 +38,11 @@ ui <- fluidPage(theme = shinytheme("superhero"),
     
     navbarPage(
        title = "Perspective on Historical and Future Consequences of Climate Change ",
-        tabPanel(
-            title = "About the Project",
-            h5("I am Isheka Agarwal, a freshman at Harvard College. I am interested in Data Science, Applied Math and Psychology."),
-            br(),
-            h4("Background of the Project:"),
-            h5("For my data analysis class (GOV 1005), I made this final project on Perspective on Historical and Future Consequences of Climate Change. This project analyzes the historical consequences of climate change, represents future projection for consequences of climate change and various opinions of people living in various regions in the United States. This project also creates a model to analyze what affects people's concern about climate change."),
-            h5("The historical consequences of climate change are indicated by extreme heat days and events by counties in the United States and measured by number of extreme heat days occuring from 2013-16. The extreme heat days are counted when the daily maximum temperature goes beyond a relative threshold of 90th Percentile. In order to see how extreme heat days affect people living in these regions, I analyzed the heat stress hospitalizations in each of the states, mapping the number of hospitalizations for heat stress across the United States from 2013-17. Then I analyzed relative data to predict the future projection of extreme heat across the United States within the next decade and how it will impact people's lives."),
-            h5("I collected data from National Environmental Public Health Tracking Network to make my analysis on abovementioned areas."),
-            h5("Additionally, I accessed data from the Climate Change in the American Mind (CCAM) research project to analyze the climate change beliefs of people who are living in four major regions across the United States: Northeast, South, Midwest and West. Then I created some models using linear regression to analyze what affects people's beliefs about climate change."), 
-            h5("Github repository for this project: https://github.com/ishekaagarwal/final-project-isheka"),
-            br(),
-            br(),
-            br(),
-            br(),
-            br(),
-            br(),
-            br(),
-            h6("Accessed from:
-               Centers for Disease Control and Prevention. Environmental Health Tracking Program. Extreme heat days and events. https://ephtracking.cdc.gov/DataExplorer.
-               Yale Program on Climate Change Communication (YPCCC) & George Mason University Center for Climate Change Communication (Mason 4C). (2019). Climate Change in the American Mind: National survey data on public opinion (2008-2017) [Data file and codebook]. doi: 10.17605/OSF.IO/W36GN")
-            ),
         
         tabPanel(
             title = "Effects of Climate Change",
-            h3("Trends of extreme heat days and events in the US from 2013 to 2016"),
+            h3("How climate change is affecting us? Let's dig into my project to find it!"),
+            h4("Trends of extreme heat days and events in the US from 2013 to 2016"),
             br(),
             br(),
             sidebarLayout(
@@ -76,10 +56,10 @@ ui <- fluidPage(theme = shinytheme("superhero"),
             )), 
             br(),
             br(),
-            h4("In 2013, it can be analyzed that extreme high heat day events occurred in some of the counties in the South, which are represented by the dark red color. In 2014, the extreme heat day events spread across the midwest and northeast region of the United States. There is a similar increasing trend of extreme heat day events from 2013 to 2016. This shows how extreme heat day events are increasing due to climate change in the United States."),
+            h5("In 2013, it can be analyzed that extreme high heat day events occurred in some of the counties in the South, which are represented by the dark red color. In 2014, the extreme heat day events spread across the midwest and northeast region of the United States. There is a similar increasing trend of extreme heat day events from 2013 to 2016. This shows how extreme heat day events are increasing due to climate change in the United States."),
             br(),
             br(),
-            h3("Future projection of heat days and events in the US for the next decade (2020-2030)"), 
+            h4("Future projection of heat days and events in the US for the next decade (2020-2030)"), 
             sidebarLayout(
                 sidebarPanel(
                     radioButtons(inputId = "prediction_year",
@@ -88,9 +68,10 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                 ),
                 mainPanel(
                     plotOutput("predictionchart")
-                ),
-            h4("The future projection of heat days and events compared to the past heat day events show that the numbers highly escalated. The range for past heat day events was from (low) zero to (high) fifteen but the range for projected number of future events are from (low) fifty to (high) one hundred and fifty. This projected map shows what negative and enormous impact climate change has.")
-            )
+                )
+            ), 
+            h5("The future projection of heat days and events compared to the past heat day events show that the numbers highly escalated. The range for past heat day events was from (low) zero to (high) fifteen but the range for projected number of future events are from (low) fifty to (high) one hundred and fifty. This projected map shows what negative and enormous impact climate change has.")
+            
     ),  
     tabPanel(
         title = "Climate Change beliefs",
@@ -98,26 +79,51 @@ ui <- fluidPage(theme = shinytheme("superhero"),
         plotOutput("plotbeliefs"), 
         br(),
         br(),
-        h4("This map represents data collected from Climate Change in the American Mind (CCAM) research project. It maps the average concern variable that I created from this dataset. Average concern variable is the average results of how worried people are about global warming, how they think that global warming is going to affect their future generations and how strongly they support setting strict limits on existing coal-fired power plants. It can be analyzed from the map that people living in the northeast and west region are very concerned about climate change. The rest of the concern variable is mostly and evenly distributed all over the United States. However, this analysis arises a concern that people need to be more aware of climate change and be worried about its consequences."),
-        tabPanel(
+        br(),
+        h4("This map represents data collected from Climate Change in the American Mind (CCAM) research project. It maps the average concern variable that I created from this dataset. Average concern variable is the average results of how worried people are about global warming, how they think that global warming is going to affect their future generations and how strongly they support setting strict limits on existing coal-fired power plants. It can be analyzed from the map that people living in the northeast and west region are very concerned about climate change. The rest of the concern variable is mostly and evenly distributed all over the United States. However, this analysis arises a concern that people need to be more aware of climate change and be worried about its consequences.")
+        
+    ),
+    tabPanel(
         title = "Models",
         h3("Does population affect people's opinions of climate change living in these states?"),
         mainPanel(
             plotOutput("regression"),
             br(),
             br(),
+            br(),
             h4("I wanted to explore if population affects climate change. So I used population data of 2009 in the United State and merged it with my climate change belief dataset. Using this merged dataset, I created a model to run regression of population on climate change beliefs. From this scatterplot, it can be analyzed that there is a very weak but positive correlation between population and climate change concerns. Therefore, it can be concluded that there is no strong evidence that population affects people’s climate change concerns."),
             br(),
             br(),
-            br(),
             gt_output("model2"),
-            h4("I ran a single variable regression model to find the coefficient of correlation between population and climate change beliefs. Looking at these values, it can be concluded that there is no correlation between population and people’s opinions about climate change."),
-            br()
+            br(),
+            br(),
+            h4("I ran a single variable regression model to find the coefficient of correlation between population and climate change beliefs. Looking at these values, it can be concluded that there is no correlation between population and people’s opinions about climate change.")
         )
   
+    ),
+    tabPanel(
+        title = "About the Project",
+        h5("I am Isheka Agarwal, interested in Data Science, Applied Math and Psychology."),
+        br(),
+        h4("Background of the Project:"),
+        h5("I made this project on Perspective on Historical and Future Consequences of Climate Change. This project analyzes the historical consequences of climate change, represents future projection for consequences of climate change and various opinions of people living in various regions in the United States. This project also creates a model to analyze what affects people's concern about climate change."),
+        h5("The historical consequences of climate change are indicated by extreme heat days and events by counties in the United States and measured by number of extreme heat days occuring from 2013-16. The extreme heat days are counted when the daily maximum temperature goes beyond a relative threshold of 90th Percentile. In order to see how extreme heat days affect people living in these regions, I analyzed the heat stress hospitalizations in each of the states, mapping the number of hospitalizations for heat stress across the United States from 2013-17. Then I analyzed relative data to predict the future projection of extreme heat across the United States within the next decade and how it will impact people's lives."),
+        h5("I collected data from National Environmental Public Health Tracking Network to make my analysis on abovementioned areas."),
+        h5("Additionally, I accessed data from the Climate Change in the American Mind (CCAM) research project to analyze the climate change beliefs of people who are living in four major regions across the United States: Northeast, South, Midwest and West. Then I created some models using linear regression to analyze what affects people's beliefs about climate change."), 
+        h5("Github repository for this project: https://github.com/ishekaagarwal/final-project-isheka"),
+        br(),
+        br(),
+        br(),
+        br(),
+        br(),
+        br(),
+        br(),
+        h6("Accessed from:
+               Centers for Disease Control and Prevention. Environmental Health Tracking Program. Extreme heat days and events. https://ephtracking.cdc.gov/DataExplorer.
+               Yale Program on Climate Change Communication (YPCCC) & George Mason University Center for Climate Change Communication (Mason 4C). (2019). Climate Change in the American Mind: National survey data on public opinion (2008-2017) [Data file and codebook]. doi: 10.17605/OSF.IO/W36GN")
     )
     
-)))
+))
 
 # Define server logic required to draw a histogram
 
